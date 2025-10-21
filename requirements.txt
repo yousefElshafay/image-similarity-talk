@@ -1,0 +1,10 @@
+flask
+opencv-python-headless
+python-Levenshtein
+pillow
+scipy
+scikit-image
+gunicorn
+fuzzywuzzy
+easyocr
+scikit-learn
