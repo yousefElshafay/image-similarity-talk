@@ -635,15 +635,8 @@ def similarity():
             Image1 = convert_transparency_to_white(Image1)
             Image2 = convert_transparency_to_white(Image2)
            
-            print("├── Step 2: now we remove background and crop to content bounding box")
-
-            # Image1Cropped = remove_White_background_and_crop(Image1)
-            # Image2Cropped = remove_White_background_and_crop(Image2)
-
-            # Image1, Image2 = scale_with_aspect_ratio(Image1Cropped, Image2Cropped)
-
             # Extract "foreground" (optional)
-            print("├── Step 3: Extract foreground Object and scale with aspect ratio")
+            print("├── Step 2: Extract foreground Object and scale with aspect ratio")
             Image1Foreground = extract_foreground(Image1)
             Image2Foreground = extract_foreground(Image2)
             Image1Foreground, Image2Foreground = scale_with_aspect_ratio(Image1Foreground, Image2Foreground)
@@ -656,7 +649,7 @@ def similarity():
         # so maybe a deep learning based approach is better suited, but we need it to be efficient so we use EfficientNetB0 family
         # ok what about text similarity using OCR?
 
-        print("├── Step 4: perform similarity calculations")
+        print("├── Step 3: perform similarity calculations")
 
         # ============ CNN Embedding Similarity (EfficientNet) ============
         similarity_score, similarity_ssim_score = calculate_image_similarities(
@@ -665,11 +658,11 @@ def similarity():
                                              
         )
 
-        print("├── Step 5: Check for low resolution images and apply blur-based similarity if needed")
+        print("├── Step 4: Check for low resolution images and apply blur-based similarity if needed")
 
         Lowerquality = False
         if 0.80 < similarity_score < 0.95 :
-            print("├── Step 5.1: Low resolution detected, applying blur-based similarity")
+            print("├── Step 4.1: Low resolution detected, applying blur-based similarity")
             Lowerquality = True
             similarity_score = calculate_blur_based_similarity(
                                     Image1Foreground,
@@ -683,13 +676,13 @@ def similarity():
         # response = {
         #     'ssim_index_score': similarity_ssim_score,          # SSIM result
         # }
-        print("├── Step 6: Check for textual similarity if image similarity is high enough")
+        print("├── Step 5: Check for textual similarity if image similarity is high enough")
 
         image_similarity_score = similarity_score    
         fuzzy_text_score  = None
         strict_text_score = None
         if similarity_score >  0.97:
-            print("├── Step 6.1: High image similarity detected, performing OCR-based text extraction and similarity")    
+            print("├── Step 5.1: High image similarity detected, performing OCR-based text extraction and similarity")    
             text1  = extract_text_from_image(Image1, 700)
             text2 =  extract_text_from_image(Image2, 700)
        

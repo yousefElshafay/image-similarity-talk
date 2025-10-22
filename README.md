@@ -15,7 +15,7 @@ This project compares three OCR engines (Pytesseract, EasyOCR, PaddleOCR) and im
 ## Quick Start
 
 ### Prerequisites
-- Python 3.8+
+- Python 
 - Tesseract OCR
 
 ### Installation
